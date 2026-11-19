@@ -1,1 +1,608 @@
 
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#09090d">
+<title>⏳ less</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#09090d;
+  --panel:#111118;
+  --panel2:#171720;
+  --border:#262631;
+  --text:#f2f0f7;
+  --muted:#858493;
+  --accent:#b9a3ff;
+  --accent2:#8b72db;
+  --green:#91d9b0;
+  --red:#f08d9b;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Inter,Cairo,sans-serif;
+  min-height:100vh;
+}
+button,input {font:inherit}
+button {cursor:pointer}
+.app {
+  width:min(100%,760px);
+  margin:auto;
+  padding:25px 18px 55px;
+}
+header {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:40px;
+}
+.logo {
+  font-size:24px;
+  font-weight:800;
+  letter-spacing:-1px;
+}
+.logo span {color:var(--accent)}
+.lang {
+  background:var(--panel2);
+  border:1px solid var(--border);
+  color:var(--text);
+  padding:9px 15px;
+  border-radius:12px;
+}
+.hero {margin-bottom:28px}
+.eyebrow {
+  color:var(--accent);
+  font-size:12px;
+  letter-spacing:2px;
+  font-weight:700;
+}
+h1 {
+  font-size:clamp(30px,7vw,43px);
+  line-height:1.25;
+  margin:12px 0 8px;
+  letter-spacing:-1.5px;
+}
+.sub {color:var(--muted);font-size:14px;line-height:1.8}
+.card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:21px;
+  margin-bottom:16px;
+}
+.card-title {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:18px;
+}
+.card-title h2 {font-size:16px;margin:0}
+.muted {color:var(--muted);font-size:12px}
+.timer-card {text-align:center;padding:27px 20px}
+.timer {
+  font-size:clamp(55px,15vw,78px);
+  font-weight:700;
+  letter-spacing:-4px;
+  margin:20px 0;
+  font-variant-numeric:tabular-nums;
+}
+.presets {
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.preset {
+  border:1px solid var(--border);
+  background:var(--panel2);
+  color:var(--muted);
+  border-radius:10px;
+  padding:9px 15px;
+}
+.preset.active {
+  background:#302747;
+  color:var(--accent);
+  border-color:var(--accent2);
+}
+.main-btn {
+  background:var(--accent);
+  color:#171020;
+  border:0;
+  border-radius:12px;
+  padding:13px 27px;
+  font-weight:800;
+  min-width:130px;
+}
+.secondary-btn {
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:12px 17px;
+}
+.timer-actions {display:flex;justify-content:center;gap:9px}
+.progress {
+  height:5px;
+  background:var(--panel2);
+  border-radius:10px;
+  overflow:hidden;
+  margin:18px 0;
+}
+.progress div {
+  height:100%;
+  width:0;
+  background:var(--accent);
+  transition:width .4s;
+}
+.field {
+  display:flex;
+  gap:9px;
+  margin-top:12px;
+}
+input {
+  min-width:0;
+  width:100%;
+  background:var(--panel2);
+  color:var(--text);
+  border:1px solid var(--border);
+  border-radius:11px;
+  padding:12px;
+  outline:none;
+}
+input:focus {border-color:var(--accent2)}
+.field button {white-space:nowrap}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+.stat {
+  background:var(--panel2);
+  border:1px solid var(--border);
+  padding:16px;
+  border-radius:15px;
+}
+.stat strong {
+  display:block;
+  font-size:25px;
+  margin:9px 0 4px;
+  font-variant-numeric:tabular-nums;
+}
+.stat small {color:var(--muted)}
+.bar-list {display:flex;align-items:end;gap:9px;height:125px;margin-top:15px}
+.bar-item {flex:1;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:end;gap:8px}
+.bar {
+  width:100%;
+  min-height:3px;
+  background:#66538f;
+  border-radius:6px 6px 2px 2px;
+}
+.bar.today {background:var(--accent)}
+.bar-label {font-size:10px;color:var(--muted)}
+.bar-value {font-size:9px;color:var(--muted)}
+.goal-line {
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  margin-bottom:10px;
+}
+.goal-track {
+  height:9px;
+  border-radius:20px;
+  background:var(--panel2);
+  overflow:hidden;
+}
+.goal-track div {
+  height:100%;
+  width:0;
+  background:var(--green);
+  border-radius:20px;
+}
+.note {
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.8;
+  margin-top:12px;
+}
+.sleep-box {
+  background:linear-gradient(130deg,#171525,#111118);
+  border-color:#302747;
+}
+footer {
+  text-align:center;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:35px;
+  line-height:2;
+}
+@media(min-width:600px) {
+  .stats {grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+<header>
+  <div class="logo">⏳ <span>less</span></div>
+  <button class="lang" id="langBtn" onclick="toggleLang()">EN</button>
+</header>
+
+<section class="hero">
+  <div class="eyebrow" id="eyebrow">A LITTLE LESS, A LITTLE MORE LIFE</div>
+  <h1 id="headline">استرجع وقتك.</h1>
+  <div class="sub" id="subtitle">مش مطلوب منك تختفي من العالم، بس متخليش العالم ياخد كل وقتك.</div>
+</section>
+
+<section class="card timer-card">
+  <div class="card-title">
+    <h2 id="timerTitle">جلسة تركيز</h2>
+    <span class="muted" id="timerStatus">جاهز؟</span>
+  </div>
+  <div class="presets">
+    <button class="preset active" onclick="setTimer(25,this)">25 min</button>
+    <button class="preset" onclick="setTimer(50,this)">50 min</button>
+    <button class="preset" onclick="setTimer(80,this)">80 min</button>
+  </div>
+  <div class="timer" id="timer">25:00</div>
+  <div class="progress"><div id="timerProgress"></div></div>
+  <div class="timer-actions">
+    <button class="main-btn" id="startBtn" onclick="toggleTimer()">ابدأ</button>
+    <button class="secondary-btn" id="resetBtn" onclick="resetTimer()">إعادة</button>
+  </div>
+  <div class="note" id="timerNote">اختار مدة وابدأ. كل دقيقة بعيد عن المشتتات بتفرق.</div>
+</section>
+
+<section class="card">
+  <div class="card-title">
+    <h2 id="usageTitle">تسجيل استخدام السوشيال</h2>
+    <span class="muted" id="todayLabel">اليوم</span>
+  </div>
+  <div class="sub" id="usageDesc">سجل إجمالي الدقائق اللي قضيتها على التطبيقات النهارده.</div>
+  <div class="field">
+    <input type="number" id="usageInput" min="0" max="1440" placeholder="عدد الدقائق">
+    <button class="main-btn" onclick="saveUsage()" id="saveUsageBtn">حفظ</button>
+  </div>
+  <div class="note" id="usageNote">التسجيل يدوي، لأن صفحة ويب عادية لا تستطيع قراءة وقت استخدام تطبيقات هاتفك تلقائيًا.</div>
+</section>
+
+<section class="card">
+  <div class="card-title">
+    <h2 id="goalTitle">هدفك اليومي</h2>
+    <span class="muted" id="goalLabel">بالدقائق</span>
+  </div>
+  <div class="goal-line">
+    <span id="goalProgressText">0 / 120 دقيقة</span>
+    <strong id="goalPercent">0%</strong>
+  </div>
+  <div class="goal-track"><div id="goalBar"></div></div>
+  <div class="field">
+    <input type="number" id="goalInput" min="1" max="1440" placeholder="حدد هدفك بالدقائق">
+    <button class="secondary-btn" onclick="saveGoal()" id="goalSaveBtn">تحديث</button>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-title">
+    <h2 id="statsTitle">نظرة على تقدمك</h2>
+    <span class="muted" id="weekLabel">آخر 7 أيام</span>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <small id="statToday">استخدام اليوم</small>
+      <strong id="todayStat">0</strong>
+      <small id="minutesUnit">دقيقة</small>
+    </div>
+    <div class="stat">
+      <small id="statAverage">المتوسط اليومي</small>
+      <strong id="averageStat">0</strong>
+      <small id="minutesUnit2">دقيقة</small>
+    </div>
+    <div class="stat">
+      <small id="statStreak">أيام الالتزام</small>
+      <strong id="streakStat">0</strong>
+      <small id="daysUnit">يوم</small>
+    </div>
+    <div class="stat">
+      <small id="statFocus">جلسات التركيز</small>
+      <strong id="focusStat">0</strong>
+      <small id="sessionsUnit">جلسة</small>
+    </div>
+  </div>
+  <div class="bar-list" id="weekChart"></div>
+  <div class="note" id="chartNote">الرسم يعرض الدقائق التي سجلتها بنفسك.</div>
+</section>
+
+<section class="card sleep-box">
+  <div class="card-title">
+    <h2 id="sleepTitle">وقت التهدئة</h2>
+    <span>☾</span>
+  </div>
+  <div class="sub" id="sleepDesc">حدد وقتًا تترك فيه هاتفك وتستعد للنوم.</div>
+  <div class="field">
+    <input type="time" id="sleepInput" value="23:00">
+    <button class="secondary-btn" onclick="saveSleep()" id="sleepSaveBtn">حفظ الوقت</button>
+  </div>
+  <div class="note" id="sleepStatus"></div>
+</section>
+
+<footer>
+  <div id="footerText">Your time is your life. Spend it intentionally.</div>
+  <div>LESS SCROLLING. MORE LIVING.</div>
+</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+const translations = {
+  ar: {
+    eyebrow:"A LITTLE LESS, A LITTLE MORE LIFE",
+    headline:"استرجع وقتك.",
+    subtitle:"مش مطلوب منك تختفي من العالم، بس متخليش العالم ياخد كل وقتك.",
+    timerTitle:"جلسة تركيز", ready:"جاهز؟", running:"شغال", paused:"متوقف",
+    start:"ابدأ", pause:"إيقاف مؤقت", resume:"استكمال", reset:"إعادة",
+    timerNote:"اختار مدة وابدأ. كل دقيقة بعيد عن المشتتات بتفرق.",
+    usageTitle:"تسجيل استخدام السوشيال", today:"اليوم",
+    usageDesc:"سجل إجمالي الدقائق اللي قضيتها على التطبيقات النهارده.",
+    usagePlaceholder:"عدد الدقائق", save:"حفظ",
+    usageNote:"التسجيل يدوي، لأن صفحة ويب عادية لا تستطيع قراءة وقت استخدام تطبيقات هاتفك تلقائيًا.",
+    goalTitle:"هدفك اليومي", minutes:"بالدقائق", goalPlaceholder:"حدد هدفك بالدقائق",
+    update:"تحديث", statsTitle:"نظرة على تقدمك", week:"آخر 7 أيام",
+    todayStat:"استخدام اليوم", average:"المتوسط اليومي",
+    streak:"أيام الالتزام", focus:"جلسات التركيز",
+    minute:"دقيقة", day:"يوم", session:"جلسة",
+    chartNote:"الرسم يعرض الدقائق التي سجلتها بنفسك.",
+    sleepTitle:"وقت التهدئة",
+    sleepDesc:"حدد وقتًا تترك فيه هاتفك وتستعد للنوم.",
+    saveTime:"حفظ الوقت", footer:"وقتك هو حياتك. استخدمه بوعي.",
+    saved:"تم الحفظ", completed:"انتهت الجلسة. أحسنت!",
+    goalDone:"حققت هدفك اليومي.", sleepSaved:"موعد التهدئة المحفوظ: ",
+    days:["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"]
+  },
+  en: {
+    eyebrow:"A LITTLE LESS, A LITTLE MORE LIFE",
+    headline:"Take your time back.",
+    subtitle:"You don't have to disappear from the world. Just don't let it take all your time.",
+    timerTitle:"Focus session", ready:"Ready?", running:"Running", paused:"Paused",
+    start:"Start", pause:"Pause", resume:"Resume", reset:"Reset",
+    timerNote:"Choose a duration and begin. Every distraction-free minute matters.",
+    usageTitle:"Social media tracking", today:"Today",
+    usageDesc:"Log the total minutes you spent on apps today.",
+    usagePlaceholder:"Minutes", save:"Save",
+    usageNote:"Manual tracking only. A normal webpage cannot automatically read your phone's app usage.",
+    goalTitle:"Daily goal", minutes:"Minutes", goalPlaceholder:"Set your goal in minutes",
+    update:"Update", statsTitle:"Your progress", week:"Last 7 days",
+    todayStat:"Today's usage", average:"Daily average",
+    streak:"Streak", focus:"Focus sessions",
+    minute:"minutes", day:"days", session:"sessions",
+    chartNote:"The chart shows the minutes you logged manually.",
+    sleepTitle:"Wind down", sleepDesc:"Choose a time to put your phone away and get ready for sleep.",
+    saveTime:"Save time", footer:"Your time is your life. Spend it intentionally.",
+    saved:"Saved", completed:"Session complete. Well done!",
+    goalDone:"You reached your daily goal.", sleepSaved:"Saved wind-down time: ",
+    days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
+  }
+};
+
+let lang = localStorage.getItem("less_lang") || "ar";
+let selectedMinutes = 25;
+let remaining = 1500;
+let totalSeconds = 1500;
+let interval = null;
+let running = false;
+
+let data = JSON.parse(localStorage.getItem("less_data") || "{}");
+if (!data.usage) data.usage = {};
+if (!data.focus) data.focus = {};
+if (!data.goal) data.goal = 120;
+if (!data.sleep) data.sleep = "23:00";
+
+function t(key) { return translations[lang][key]; }
+function dateKey(date = new Date()) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth()+1).padStart(2,"0");
+  const d = String(date.getDate()).padStart(2,"0");
+  return `${y}-${m}-${d}`;
+}
+function persist() {
+  localStorage.setItem("less_data",JSON.stringify(data));
+}
+function toggleLang() {
+  lang = lang === "ar" ? "en" : "ar";
+  localStorage.setItem("less_lang",lang);
+  renderLanguage();
+}
+function renderLanguage() {
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
+  $("langBtn").textContent = lang === "ar" ? "EN" : "عربي";
+
+  const ids = [
+    "eyebrow","headline","subtitle","timerTitle","timerNote",
+    "usageTitle","todayLabel","usageDesc","saveUsageBtn","usageNote",
+    "goalTitle","goalLabel","goalSaveBtn","statsTitle","weekLabel",
+    "statToday","statAverage","statStreak","statFocus",
+    "minutesUnit","minutesUnit2","daysUnit","sessionsUnit",
+    "chartNote","sleepTitle","sleepDesc","sleepSaveBtn","footerText"
+  ];
+  const keys = [
+    "eyebrow","headline","subtitle","timerTitle","timerNote",
+    "usageTitle","today","usageDesc","save","usageNote",
+    "goalTitle","minutes","update","statsTitle","week",
+    "todayStat","average","streak","focus",
+    "minute","minute","day","session",
+    "chartNote","sleepTitle","sleepDesc","saveTime","footer"
+  ];
+  ids.forEach((id,i) => $(id).textContent = t(keys[i]));
+
+  $("usageInput").placeholder = t("usagePlaceholder");
+  $("goalInput").placeholder = t("goalPlaceholder");
+  $("startBtn").textContent = running ? t("pause") : t("start");
+  $("resetBtn").textContent = t("reset");
+  $("timerStatus").textContent = running ? t("running") : t("ready");
+  updateStats();
+  updateTimer();
+  updateSleepStatus();
+}
+function setTimer(minutes,button) {
+  if (running) return;
+  selectedMinutes = minutes;
+  totalSeconds = minutes*60;
+  remaining = totalSeconds;
+  document.querySelectorAll(".preset").forEach(b=>b.classList.remove("active"));
+  if (button) button.classList.add("active");
+  updateTimer();
+}
+function updateTimer() {
+  const m = Math.floor(remaining/60);
+  const s = remaining%60;
+  $("timer").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
+  const done = 100 - (remaining/totalSeconds*100);
+  $("timerProgress").style.width = `${done}%`;
+}
+function toggleTimer() {
+  if (running) {
+    clearInterval(interval);
+    running = false;
+    $("startBtn").textContent = t("resume");
+    $("timerStatus").textContent = t("paused");
+    return;
+  }
+  if (remaining <= 0) resetTimer();
+  running = true;
+  $("startBtn").textContent = t("pause");
+  $("timerStatus").textContent = t("running");
+  interval = setInterval(() => {
+    remaining--;
+    updateTimer();
+    if (remaining <= 0) {
+      clearInterval(interval);
+      running = false;
+      const key = dateKey();
+      data.focus[key] = (data.focus[key] || 0) + 1;
+      persist();
+      $("startBtn").textContent = t("start");
+      $("timerStatus").textContent = t("completed");
+      updateStats();
+      if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("less", {body:t("completed")});
+      }
+      alert(t("completed"));
+    }
+  },1000);
+}
+function resetTimer() {
+  clearInterval(interval);
+  running = false;
+  remaining = totalSeconds;
+  $("startBtn").textContent = t("start");
+  $("timerStatus").textContent = t("ready");
+  updateTimer();
+}
+function saveUsage() {
+  const value = Number($("usageInput").value);
+  if (!Number.isFinite(value) || value < 0 || value > 1440) {
+    alert(lang === "ar" ? "اكتب عدد دقائق صحيح." : "Enter a valid number of minutes.");
+    return;
+  }
+  data.usage[dateKey()] = Math.round(value);
+  persist();
+  $("usageInput").value = "";
+  updateStats();
+  alert(t("saved"));
+}
+function saveGoal() {
+  const value = Number($("goalInput").value);
+  if (!Number.isFinite(value) || value < 1 || value > 1440) {
+    alert(lang === "ar" ? "اكتب هدفًا صحيحًا بالدقائق." : "Enter a valid goal in minutes.");
+    return;
+  }
+  data.goal = Math.round(value);
+  persist();
+  $("goalInput").value = "";
+  updateStats();
+  alert(t("saved"));
+}
+function saveSleep() {
+  data.sleep = $("sleepInput").value || "23:00";
+  persist();
+  updateSleepStatus();
+  alert(t("saved"));
+}
+function updateSleepStatus() {
+  $("sleepInput").value = data.sleep;
+  $("sleepStatus").textContent = t("sleepSaved") + data.sleep;
+}
+function getLastDays() {
+  const result = [];
+  for (let i=6;i>=0;i--) {
+    const d = new Date();
+    d.setDate(d.getDate()-i);
+    result.push(d);
+  }
+  return result;
+}
+function calculateStreak() {
+  let streak = 0;
+  const today = new Date();
+  for (let i=0;i<365;i++) {
+    const d = new Date();
+    d.setDate(today.getDate()-i);
+    const key = dateKey(d);
+    if ((data.usage[key] || 0) <= data.goal && data.usage[key] !== undefined) streak++;
+    else break;
+  }
+  return streak;
+}
+function updateStats() {
+  const today = data.usage[dateKey()] || 0;
+  const goal = data.goal || 120;
+  const percent = Math.min(100,Math.round(today/goal*100));
+  $("goalProgressText").textContent = `${today} / ${goal} ${t("minute")}`;
+  $("goalPercent").textContent = `${percent}%`;
+  $("goalBar").style.width = `${percent}%`;
+  $("todayStat").textContent = today;
+  const days = getLastDays();
+  const values = days.map(d => data.usage[dateKey(d)] || 0);
+  const average = Math.round(values.reduce((a,b)=>a+b,0)/7);
+  $("averageStat").textContent = average;
+  $("streakStat").textContent = calculateStreak();
+  $("focusStat").textContent = Object.values(data.focus).reduce((a,b)=>a+b,0);
+  if (today > 0 && today <= goal) {
+    $("goalProgressText").textContent += " ✓";
+  }
+  const max = Math.max(...values,1);
+  $("weekChart").innerHTML = "";
+  days.forEach((d,i) => {
+    const item = document.createElement("div");
+    item.className = "bar-item";
+    const value = values[i];
+    const bar = document.createElement("div");
+    bar.className = "bar" + (i===6 ? " today" : "");
+    bar.style.height = `${Math.max(3,value/max*82)}px`;
+    const val = document.createElement("div");
+    val.className = "bar-value";
+    val.textContent = value;
+    const label = document.createElement("div");
+    label.className = "bar-label";
+    label.textContent = t("days")[d.getDay()];
+    item.append(bar,val,label);
+    $("weekChart").append(item);
+  });
+}
+$("sleepInput").value = data.sleep;
+renderLanguage();
+updateStats();
+updateTimer();
+</script>
+</body>
+</html>
+
