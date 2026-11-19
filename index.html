@@ -4,605 +4,652 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#09090d">
-<title>⏳ less</title>
+<meta name="theme-color" content="#08090c">
+<title>LESS — Take your time back</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cairo:wght@400;500;600;700;800&display=swap');
-
-:root {
-  --bg:#09090d;
-  --panel:#111118;
-  --panel2:#171720;
-  --border:#262631;
-  --text:#f2f0f7;
-  --muted:#858493;
-  --accent:#b9a3ff;
-  --accent2:#8b72db;
-  --green:#91d9b0;
-  --red:#f08d9b;
+:root{
+ --bg:#08090c;--surface:#101116;--surface2:#15171e;
+ --surface3:#1b1d26;--line:#262833;--text:#f2f1f5;
+ --muted:#858794;--accent:#c5a7ff;--accent2:#8d6bd0;
+ --green:#9bd6b3;--red:#ef929b;--gold:#d8bd86;
+ --radius:20px;
 }
-* {box-sizing:border-box}
-body {
-  margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:Inter,Cairo,sans-serif;
-  min-height:100vh;
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:"DM Sans","Cairo",sans-serif;min-height:100vh;
+ overflow-x:hidden;
 }
-button,input {font:inherit}
-button {cursor:pointer}
-.app {
-  width:min(100%,760px);
-  margin:auto;
-  padding:25px 18px 55px;
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+ background:
+ radial-gradient(ellipse at 15% 5%,rgba(125,91,190,.12),transparent 35%),
+ radial-gradient(ellipse at 90% 70%,rgba(74,100,145,.08),transparent 40%);
 }
-header {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:40px;
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{
+ outline:2px solid var(--accent);outline-offset:3px
 }
-.logo {
-  font-size:24px;
-  font-weight:800;
-  letter-spacing:-1px;
+.app{max-width:1180px;margin:auto;padding:22px 22px 60px}
+.topbar{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:8px 0 25px;border-bottom:1px solid var(--line);
 }
-.logo span {color:var(--accent)}
-.lang {
-  background:var(--panel2);
-  border:1px solid var(--border);
-  color:var(--text);
-  padding:9px 15px;
-  border-radius:12px;
+.brand{display:flex;align-items:center;gap:11px}
+.brand-mark{
+ width:38px;height:38px;border:1px solid #50416d;
+ display:grid;place-items:center;border-radius:12px;
+ color:var(--accent);font-size:19px;
+ background:linear-gradient(145deg,#211b2e,#111116);
 }
-.hero {margin-bottom:28px}
-.eyebrow {
-  color:var(--accent);
-  font-size:12px;
-  letter-spacing:2px;
-  font-weight:700;
+.brand-name{font-size:21px;font-weight:800;letter-spacing:2px}
+.brand-name span{color:var(--accent)}
+.top-actions{display:flex;gap:9px;align-items:center}
+.icon-btn,.lang-btn{
+ border:1px solid var(--line);background:var(--surface);
+ color:var(--text);border-radius:12px;padding:10px 13px;
+ transition:.25s;
 }
-h1 {
-  font-size:clamp(30px,7vw,43px);
-  line-height:1.25;
-  margin:12px 0 8px;
-  letter-spacing:-1.5px;
+.icon-btn:hover,.lang-btn:hover{border-color:var(--accent);transform:translateY(-2px)}
+.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:28px;margin-top:28px}
+.sidebar{position:sticky;top:20px;height:max-content}
+.side-label{
+ color:#656875;font-size:10px;letter-spacing:2px;
+ font-weight:700;margin:10px 12px 13px;
 }
-.sub {color:var(--muted);font-size:14px;line-height:1.8}
-.card {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:22px;
-  padding:21px;
-  margin-bottom:16px;
+.nav{display:grid;gap:6px}
+.nav button{
+ text-align:start;padding:13px 14px;border-radius:13px;
+ border:1px solid transparent;background:transparent;
+ color:var(--muted);display:flex;align-items:center;gap:12px;
+ transition:all .25s;font-size:13px;
 }
-.card-title {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:18px;
+.nav button:hover{background:var(--surface);color:var(--text)}
+.nav button.active{
+ background:linear-gradient(100deg,#272033,#17151e);
+ border-color:#41344f;color:var(--accent);
 }
-.card-title h2 {font-size:16px;margin:0}
-.muted {color:var(--muted);font-size:12px}
-.timer-card {text-align:center;padding:27px 20px}
-.timer {
-  font-size:clamp(55px,15vw,78px);
-  font-weight:700;
-  letter-spacing:-4px;
-  margin:20px 0;
-  font-variant-numeric:tabular-nums;
+.nav-icon{width:20px;text-align:center;font-size:16px}
+.sidebar-bottom{
+ margin-top:30px;padding:17px;border:1px solid var(--line);
+ border-radius:16px;background:var(--surface);
 }
-.presets {
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:20px;
+.sidebar-bottom small{color:var(--muted);font-size:11px}
+.sidebar-bottom strong{display:block;font-size:22px;margin:9px 0}
+.content{min-width:0}
+.page{display:none;animation:pageIn .45s cubic-bezier(.2,.8,.2,1)}
+.page.active{display:block}
+@keyframes pageIn{
+ from{opacity:0;transform:translateY(12px)}
+ to{opacity:1;transform:translateY(0)}
 }
-.preset {
-  border:1px solid var(--border);
-  background:var(--panel2);
-  color:var(--muted);
-  border-radius:10px;
-  padding:9px 15px;
+.hero{
+ display:flex;justify-content:space-between;align-items:flex-end;
+ gap:20px;margin:9px 0 27px;
 }
-.preset.active {
-  background:#302747;
-  color:var(--accent);
-  border-color:var(--accent2);
+.eyebrow{font-size:10px;letter-spacing:3px;color:var(--accent);font-weight:700}
+h1{font-size:clamp(29px,5vw,43px);letter-spacing:-1.5px;margin:10px 0 7px}
+.subtitle{font-size:13px;color:var(--muted);line-height:1.8}
+.date-label{color:var(--muted);font-size:12px;white-space:nowrap}
+.grid{display:grid;gap:15px}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.panel{
+ background:linear-gradient(145deg,rgba(21,23,30,.97),rgba(14,15,20,.98));
+ border:1px solid var(--line);border-radius:var(--radius);
+ padding:21px;min-width:0;transition:border-color .3s,transform .3s;
 }
-.main-btn {
-  background:var(--accent);
-  color:#171020;
-  border:0;
-  border-radius:12px;
-  padding:13px 27px;
-  font-weight:800;
-  min-width:130px;
+.panel:hover{border-color:#393344}
+.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}
+.panel-title{font-size:14px;font-weight:700}
+.panel-caption{font-size:11px;color:var(--muted)}
+.stat-card{position:relative;overflow:hidden}
+.stat-card:after{
+ content:"";position:absolute;width:100px;height:100px;border-radius:50%;
+ background:rgba(197,167,255,.06);top:-48px;left:-35px;
+ filter:blur(2px);
 }
-.secondary-btn {
-  background:var(--panel2);
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:12px 17px;
+.stat-number{font-size:32px;font-weight:700;letter-spacing:-1px;margin:12px 0 4px}
+.stat-desc{font-size:11px;color:var(--muted)}
+.stat-icon{font-size:17px;color:var(--accent)}
+.timer-panel{
+ text-align:center;padding:27px 25px;
+ background:radial-gradient(ellipse at 50% 0%,#292039 0%,#15131d 45%,#101116 100%);
+ border-color:#3b3049;
 }
-.timer-actions {display:flex;justify-content:center;gap:9px}
-.progress {
-  height:5px;
-  background:var(--panel2);
-  border-radius:10px;
-  overflow:hidden;
-  margin:18px 0;
+.timer-mode{color:var(--accent);font-size:11px;letter-spacing:2px;font-weight:700}
+.timer{
+ font-size:clamp(65px,13vw,100px);font-weight:600;
+ letter-spacing:-6px;font-variant-numeric:tabular-nums;
+ margin:22px 0 14px;line-height:1.1;
 }
-.progress div {
-  height:100%;
-  width:0;
-  background:var(--accent);
-  transition:width .4s;
+.timer-ring{
+ width:100%;height:3px;background:#292631;border-radius:10px;
+ overflow:hidden;margin:0 auto 24px;
 }
-.field {
-  display:flex;
-  gap:9px;
-  margin-top:12px;
+.timer-ring div{
+ height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));
+ transition:width .5s linear;
 }
-input {
-  min-width:0;
-  width:100%;
-  background:var(--panel2);
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:11px;
-  padding:12px;
-  outline:none;
+.timer-presets{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:21px}
+.preset{
+ border:1px solid var(--line);background:#191821;color:var(--muted);
+ padding:9px 14px;border-radius:10px;font-size:11px;transition:.2s;
 }
-input:focus {border-color:var(--accent2)}
-.field button {white-space:nowrap}
-.stats {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
+.preset.active,.preset:hover{border-color:var(--accent2);color:var(--accent);background:#292137}
+.actions{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+.primary,.secondary,.danger{
+ border-radius:12px;padding:12px 20px;font-size:12px;font-weight:700;
+ transition:transform .2s,filter .2s;
 }
-.stat {
-  background:var(--panel2);
-  border:1px solid var(--border);
-  padding:16px;
-  border-radius:15px;
+.primary{border:0;background:var(--accent);color:#17111f}
+.secondary{border:1px solid var(--line);background:#1a1b23;color:var(--text)}
+.danger{border:1px solid #58353d;background:#29191e;color:var(--red)}
+.primary:hover,.secondary:hover,.danger:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.timer-note{margin-top:18px;font-size:11px;color:var(--muted)}
+.field{display:flex;gap:9px;margin-top:12px}
+.field input,.task-input,.settings-input{
+ width:100%;min-width:0;background:#0d0e13;color:var(--text);
+ border:1px solid var(--line);border-radius:11px;padding:12px;
 }
-.stat strong {
-  display:block;
-  font-size:25px;
-  margin:9px 0 4px;
-  font-variant-numeric:tabular-nums;
+.field input:focus,.task-input:focus,.settings-input:focus{border-color:var(--accent);outline:none}
+.progress-track{height:7px;border-radius:20px;background:#252630;overflow:hidden}
+.progress-fill{height:100%;width:0;background:var(--green);border-radius:20px;transition:width .5s}
+.progress-info{display:flex;justify-content:space-between;margin:12px 0;font-size:12px}
+.chart{height:155px;display:flex;align-items:end;gap:10px;padding-top:17px}
+.chart-col{height:100%;flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;gap:8px}
+.chart-bar{width:100%;max-width:35px;min-height:3px;border-radius:6px 6px 2px 2px;background:#66517f;transition:height .5s}
+.chart-bar.today{background:var(--accent)}
+.chart-day{font-size:10px;color:var(--muted)}
+.chart-value{font-size:9px;color:var(--muted)}
+.task-form{display:flex;gap:9px;margin-bottom:16px}
+.task-list{display:grid;gap:9px}
+.task-item{
+ display:flex;align-items:center;gap:11px;padding:13px;
+ background:#111218;border:1px solid var(--line);border-radius:13px;
+ animation:pageIn .3s ease;
 }
-.stat small {color:var(--muted)}
-.bar-list {display:flex;align-items:end;gap:9px;height:125px;margin-top:15px}
-.bar-item {flex:1;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:end;gap:8px}
-.bar {
-  width:100%;
-  min-height:3px;
-  background:#66538f;
-  border-radius:6px 6px 2px 2px;
+.task-item.done .task-text{text-decoration:line-through;color:#777}
+.task-check{
+ width:19px;height:19px;accent-color:var(--accent);flex-shrink:0;
 }
-.bar.today {background:var(--accent)}
-.bar-label {font-size:10px;color:var(--muted)}
-.bar-value {font-size:9px;color:var(--muted)}
-.goal-line {
-  display:flex;
-  justify-content:space-between;
-  font-size:13px;
-  margin-bottom:10px;
+.task-text{flex:1;font-size:13px;overflow-wrap:anywhere}
+.task-delete{background:none;border:0;color:#777;font-size:17px;padding:5px}
+.task-delete:hover{color:var(--red)}
+.empty{text-align:center;padding:30px;color:var(--muted);font-size:12px}
+.setting-row{
+ display:flex;align-items:center;justify-content:space-between;gap:15px;
+ padding:16px 0;border-bottom:1px solid var(--line);
 }
-.goal-track {
-  height:9px;
-  border-radius:20px;
-  background:var(--panel2);
-  overflow:hidden;
+.setting-row:last-child{border:0}
+.setting-row strong{font-size:13px;display:block}
+.setting-row small{color:var(--muted);font-size:11px;display:block;margin-top:5px}
+select{
+ background:#171820;border:1px solid var(--line);color:var(--text);
+ border-radius:10px;padding:10px;
 }
-.goal-track div {
-  height:100%;
-  width:0;
-  background:var(--green);
-  border-radius:20px;
+.quote{
+ font-size:22px;line-height:1.7;font-weight:500;
+ max-width:600px;margin:12px 0 22px;
 }
-.note {
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.8;
-  margin-top:12px;
+.quote-mark{font-size:38px;color:var(--accent)}
+footer{text-align:center;color:#666875;font-size:10px;margin-top:40px;letter-spacing:1px}
+.toast{
+ position:fixed;bottom:25px;left:50%;transform:translate(-50%,20px);
+ background:#22202c;border:1px solid #514365;color:var(--text);
+ border-radius:12px;padding:12px 18px;font-size:12px;
+ opacity:0;pointer-events:none;transition:.3s;z-index:20;
 }
-.sleep-box {
-  background:linear-gradient(130deg,#171525,#111118);
-  border-color:#302747;
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){
+ .layout{grid-template-columns:1fr;gap:20px}
+ .sidebar{position:static}
+ .nav{display:flex;overflow-x:auto;padding-bottom:5px}
+ .nav button{white-space:nowrap;padding:11px 13px}
+ .nav-icon{display:none}
+ .side-label,.sidebar-bottom{display:none}
+ .grid.three{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
-footer {
-  text-align:center;
-  color:var(--muted);
-  font-size:11px;
-  margin-top:35px;
-  line-height:2;
+@media(max-width:520px){
+ .app{padding:15px 13px 40px}
+ .topbar{padding-bottom:17px}
+ .layout{margin-top:16px}
+ .hero{align-items:flex-start;flex-direction:column;gap:8px}
+ .grid.two{grid-template-columns:1fr}
+ .grid.three{gap:9px}
+ .panel{padding:17px;border-radius:17px}
+ .stat-number{font-size:27px}
+ .timer-panel{padding:24px 15px}
+ .timer{letter-spacing:-4px}
+ .task-form{flex-direction:column}
 }
-@media(min-width:600px) {
-  .stats {grid-template-columns:repeat(4,1fr)}
+@media(prefers-reduced-motion:reduce){
+ *,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
 }
 </style>
 </head>
-
 <body>
 <div class="app">
-<header>
-  <div class="logo">⏳ <span>less</span></div>
-  <button class="lang" id="langBtn" onclick="toggleLang()">EN</button>
+<header class="topbar">
+ <div class="brand">
+  <div class="brand-mark">◷</div>
+  <div class="brand-name">LESS<span>.</span></div>
+ </div>
+ <div class="top-actions">
+  <button class="icon-btn" onclick="showPage('settings')" title="Settings">⚙</button>
+  <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+ </div>
 </header>
 
-<section class="hero">
-  <div class="eyebrow" id="eyebrow">A LITTLE LESS, A LITTLE MORE LIFE</div>
-  <h1 id="headline">استرجع وقتك.</h1>
-  <div class="sub" id="subtitle">مش مطلوب منك تختفي من العالم، بس متخليش العالم ياخد كل وقتك.</div>
+<div class="layout">
+<aside class="sidebar">
+ <div class="side-label" data-i="workspace">WORKSPACE</div>
+ <nav class="nav">
+  <button class="active" data-page="dashboard" onclick="showPage('dashboard')"><span class="nav-icon">⌂</span><span data-i="dashboard">الرئيسية</span></button>
+  <button data-page="focus" onclick="showPage('focus')"><span class="nav-icon">◷</span><span data-i="focus">التركيز</span></button>
+  <button data-page="tasks" onclick="showPage('tasks')"><span class="nav-icon">▤</span><span data-i="tasks">المهام</span></button>
+  <button data-page="insights" onclick="showPage('insights')"><span class="nav-icon">⌁</span><span data-i="insights">الإحصائيات</span></button>
+ </nav>
+ <div class="side-label" style="margin-top:28px" data-i="personal">PERSONAL</div>
+ <nav class="nav">
+  <button data-page="settings" onclick="showPage('settings')"><span class="nav-icon">⚙</span><span data-i="settings">الإعدادات</span></button>
+ </nav>
+ <div class="sidebar-bottom">
+  <small data-i="focusToday">تركيزك اليوم</small>
+  <strong id="sideFocus">0 min</strong>
+  <small data-i="keepGoing">استمر، خطوة بخطوة.</small>
+ </div>
+</aside>
+
+<main class="content">
+<!-- DASHBOARD -->
+<section class="page active" id="page-dashboard">
+ <div class="hero">
+  <div>
+   <div class="eyebrow">LESS / YOUR PERSONAL SPACE</div>
+   <h1 data-i="welcome">استرجع وقتك.</h1>
+   <div class="subtitle" data-i="welcomeSub">مساحة هادئة لحياة أقل تشتيتًا وأكثر معنى.</div>
+  </div>
+  <div class="date-label" id="todayDate"></div>
+ </div>
+
+ <div class="grid three" style="margin-bottom:15px">
+  <div class="panel stat-card">
+   <div class="panel-head"><span class="panel-caption" data-i="todayUsage">استخدام اليوم</span><span class="stat-icon">◷</span></div>
+   <div class="stat-number" id="dashUsage">0</div><div class="stat-desc" data-i="minutes">دقيقة</div>
+  </div>
+  <div class="panel stat-card">
+   <div class="panel-head"><span class="panel-caption" data-i="focusTime">وقت التركيز</span><span class="stat-icon">✳</span></div>
+   <div class="stat-number" id="dashFocus">0</div><div class="stat-desc" data-i="minutes">دقيقة</div>
+  </div>
+  <div class="panel stat-card">
+   <div class="panel-head"><span class="panel-caption" data-i="tasksDone">مهام مكتملة</span><span class="stat-icon">✓</span></div>
+   <div class="stat-number" id="dashTasks">0</div><div class="stat-desc" data-i="today">اليوم</div>
+  </div>
+  </div>
+
+ <div class="grid two">
+  <div class="panel timer-panel">
+   <div class="timer-mode" data-i="focusSession">FOCUS SESSION</div>
+   <div class="timer" id="dashTimer">25:00</div>
+   <div class="timer-ring"><div id="dashRing"></div></div>
+   <div class="timer-presets">
+    <button class="preset active" onclick="setTimer(25,this)">25 MIN</button>
+    <button class="preset" onclick="setTimer(50,this)">50 MIN</button>
+    <button class="preset" onclick="setTimer(90,this)">90 MIN</button>
+   </div>
+   <div class="actions">
+    <button class="primary" id="dashStart" onclick="toggleTimer()" data-i="start">ابدأ</button>
+    <button class="secondary" onclick="resetTimer()" data-i="reset">إعادة</button>
+   </div>
+   <div class="timer-note" id="timerStatus" data-i="ready">جاهز لجلسة جديدة؟</div>
+  </div>
+
+  <div class="panel">
+   <div class="panel-head"><span class="panel-title" data-i="dailyGoal">هدفك اليومي</span><span class="panel-caption" data-i="minutes">دقيقة</span></div>
+   <div class="progress-info"><span id="goalProgressText">0 / 120</span><strong id="goalPercent">0%</strong></div>
+   <div class="progress-track"><div class="progress-fill" id="goalBar"></div></div>
+   <div style="margin-top:25px" class="panel-head"><span class="panel-title" data-i="logUsage">سجل استخدامك</span></div>
+   <div class="subtitle" data-i="logDesc">أدخل وقت استخدامك اليومي يدويًا.</div>
+   <div class="field">
+    <input type="number" id="usageInput" min="0" max="1440" placeholder="Minutes">
+    <button class="primary" onclick="saveUsage()" data-i="save">حفظ</button>
+   </div>
+   <div class="panel-head" style="margin-top:28px"><span class="panel-title" data-i="dailyQuote">فكرة اليوم</span></div>
+   <div class="quote-mark">“</div>
+   <div class="quote" id="quoteText">Your life is happening now. Don't spend it watching someone else's.</div>
+  </div>
+ </div>
 </section>
 
-<section class="card timer-card">
-  <div class="card-title">
-    <h2 id="timerTitle">جلسة تركيز</h2>
-    <span class="muted" id="timerStatus">جاهز؟</span>
+<!-- FOCUS -->
+<section class="page" id="page-focus">
+ <div class="hero"><div><div class="eyebrow">DEEP WORK / NO DISTRACTIONS</div><h1 data-i="focusPageTitle">مساحة التركيز.</h1><div class="subtitle" data-i="focusPageSub">وقت مخصص لشيء يستحق انتباهك.</div></div></div>
+ <div class="grid two">
+  <div class="panel timer-panel">
+   <div class="timer-mode">DEEP FOCUS</div>
+   <div class="timer" id="focusTimer">25:00</div>
+   <div class="timer-ring"><div id="focusRing"></div></div>
+   <div class="timer-presets">
+    <button class="preset active" onclick="setTimer(25,this)">25 MIN</button>
+    <button class="preset" onclick="setTimer(50,this)">50 MIN</button>
+    <button class="preset" onclick="setTimer(90,this)">90 MIN</button>
+   </div>
+   <div class="field" style="max-width:220px;margin:0 auto 15px">
+    <input id="customMinutes" type="number" min="1" max="240" placeholder="Custom minutes">
+    <button class="secondary" onclick="customTimer()">SET</button>
+   </div>
+   <div class="actions">
+    <button class="primary" id="focusStart" onclick="toggleTimer()" data-i="start">ابدأ</button>
+    <button class="secondary" onclick="resetTimer()" data-i="reset">إعادة</button>
+   </div>
+   <div class="timer-note" id="focusStatus" data-i="ready">جاهز لجلسة جديدة؟</div>
   </div>
-  <div class="presets">
-    <button class="preset active" onclick="setTimer(25,this)">25 min</button>
-    <button class="preset" onclick="setTimer(50,this)">50 min</button>
-    <button class="preset" onclick="setTimer(80,this)">80 min</button>
+  <div class="panel">
+   <div class="panel-head"><span class="panel-title" data-i="sessionStats">إحصائيات الجلسات</span></div>
+   <div class="stat-number" id="totalSessions">0</div><div class="stat-desc" data-i="completedSessions">جلسة مكتملة</div>
+   <div style="height:1px;background:var(--line);margin:22px 0"></div>
+   <div class="panel-head"><span class="panel-title" data-i="focusMinutes">إجمالي التركيز</span></div>
+   <div class="stat-number" id="totalFocusMinutes">0</div><div class="stat-desc" data-i="minutes">دقيقة</div>
+   <div style="height:1px;background:var(--line);margin:22px 0"></div>
+   <div class="panel-head"><span class="panel-title" data-i="focusTip">قاعدة بسيطة</span></div>
+   <div class="subtitle" data-i="focusTipText">أبعد هاتفك، أغلق المشتتات، وابدأ بمهمة واحدة فقط. لا تحتاج إلى حماس خارق، تحتاج إلى بداية.</div>
   </div>
-  <div class="timer" id="timer">25:00</div>
-  <div class="progress"><div id="timerProgress"></div></div>
-  <div class="timer-actions">
-    <button class="main-btn" id="startBtn" onclick="toggleTimer()">ابدأ</button>
-    <button class="secondary-btn" id="resetBtn" onclick="resetTimer()">إعادة</button>
-  </div>
-  <div class="note" id="timerNote">اختار مدة وابدأ. كل دقيقة بعيد عن المشتتات بتفرق.</div>
+ </div>
 </section>
 
-<section class="card">
-  <div class="card-title">
-    <h2 id="usageTitle">تسجيل استخدام السوشيال</h2>
-    <span class="muted" id="todayLabel">اليوم</span>
-  </div>
-  <div class="sub" id="usageDesc">سجل إجمالي الدقائق اللي قضيتها على التطبيقات النهارده.</div>
-  <div class="field">
-    <input type="number" id="usageInput" min="0" max="1440" placeholder="عدد الدقائق">
-    <button class="main-btn" onclick="saveUsage()" id="saveUsageBtn">حفظ</button>
-  </div>
-  <div class="note" id="usageNote">التسجيل يدوي، لأن صفحة ويب عادية لا تستطيع قراءة وقت استخدام تطبيقات هاتفك تلقائيًا.</div>
+<!-- TASKS -->
+<section class="page" id="page-tasks">
+ <div class="hero"><div><div class="eyebrow">PLAN / EXECUTE / COMPLETE</div><h1 data-i="tasksTitle">قائمة مهامك.</h1><div class="subtitle" data-i="tasksSub">رتب أفكارك، وخلّي التنفيذ أبسط.</div></div></div>
+ <div class="panel">
+  <div class="panel-head"><span class="panel-title" data-i="addTask">أضف مهمة جديدة</span><span class="panel-caption" id="taskCount">0 tasks</span></div>
+  <form class="task-form" onsubmit="addTask(event)">
+   <input class="task-input" id="taskInput" placeholder="What needs to be done?" maxlength="120">
+   <button class="primary" type="submit" data-i="add">إضافة</button>
+  </form>
+  <div class="task-list" id="taskList"></div>
+ </div>
 </section>
 
-<section class="card">
-  <div class="card-title">
-    <h2 id="goalTitle">هدفك اليومي</h2>
-    <span class="muted" id="goalLabel">بالدقائق</span>
-  </div>
-  <div class="goal-line">
-    <span id="goalProgressText">0 / 120 دقيقة</span>
-    <strong id="goalPercent">0%</strong>
-  </div>
-  <div class="goal-track"><div id="goalBar"></div></div>
-  <div class="field">
-    <input type="number" id="goalInput" min="1" max="1440" placeholder="حدد هدفك بالدقائق">
-    <button class="secondary-btn" onclick="saveGoal()" id="goalSaveBtn">تحديث</button>
-  </div>
+<!-- INSIGHTS -->
+<section class="page" id="page-insights">
+ <div class="hero"><div><div class="eyebrow">DATA / PROGRESS / REFLECTION</div><h1 data-i="insightsTitle">الصورة الأكبر.</h1><div class="subtitle" data-i="insightsSub">راقب تقدمك بدل ما تعتمد على إحساسك بالوقت.</div></div></div>
+ <div class="grid three" style="margin-bottom:15px">
+  <div class="panel stat-card"><div class="panel-caption" data-i="todayUsage">استخدام اليوم</div><div class="stat-number" id="insightUsage">0</div><div class="stat-desc" data-i="minutes">دقيقة</div></div>
+  <div class="panel stat-card"><div class="panel-caption" data-i="weeklyAverage">متوسط الأسبوع</div><div class="stat-number" id="weeklyAverage">0</div><div class="stat-desc" data-i="minutes">دقيقة</div></div>
+  <div class="panel stat-card"><div class="panel-caption" data-i="focusSessions">جلسات التركيز</div><div class="stat-number" id="insightSessions">0</div><div class="stat-desc" data-i="completedSessions">جلسة مكتملة</div></div>
+ </div>
+ <div class="panel">
+  <div class="panel-head"><span class="panel-title" data-i="weeklyUsage">استخدام آخر 7 أيام</span><span class="panel-caption">LAST 7 DAYS</span></div>
+  <div class="chart" id="weekChart"></div>
+ </div>
+ <div class="panel" style="margin-top:15px">
+  <div class="panel-head"><span class="panel-title" data-i="goalSettings">إعداد الهدف اليومي</span></div>
+  <div class="subtitle" data-i="goalDesc">حدد الحد الذي تريد ألا تتجاوزه في استخدامك.</div>
+  <div class="field"><input id="goalInput" type="number" min="1" max="1440" placeholder="120"><button class="primary" onclick="saveGoal()" data-i="save">حفظ</button></div>
+ </div>
 </section>
 
-<section class="card">
-  <div class="card-title">
-    <h2 id="statsTitle">نظرة على تقدمك</h2>
-    <span class="muted" id="weekLabel">آخر 7 أيام</span>
-  </div>
-  <div class="stats">
-    <div class="stat">
-      <small id="statToday">استخدام اليوم</small>
-      <strong id="todayStat">0</strong>
-      <small id="minutesUnit">دقيقة</small>
-    </div>
-    <div class="stat">
-      <small id="statAverage">المتوسط اليومي</small>
-      <strong id="averageStat">0</strong>
-      <small id="minutesUnit2">دقيقة</small>
-    </div>
-    <div class="stat">
-      <small id="statStreak">أيام الالتزام</small>
-      <strong id="streakStat">0</strong>
-      <small id="daysUnit">يوم</small>
-    </div>
-    <div class="stat">
-      <small id="statFocus">جلسات التركيز</small>
-      <strong id="focusStat">0</strong>
-      <small id="sessionsUnit">جلسة</small>
-    </div>
-  </div>
-  <div class="bar-list" id="weekChart"></div>
-  <div class="note" id="chartNote">الرسم يعرض الدقائق التي سجلتها بنفسك.</div>
+<!-- SETTINGS -->
+<section class="page" id="page-settings">
+ <div class="hero"><div><div class="eyebrow">PREFERENCES / PERSONALIZATION</div><h1 data-i="settingsTitle">إعداداتك.</h1><div class="subtitle" data-i="settingsSub">اجعل المساحة مناسبة لطريقتك.</div></div></div>
+ <div class="panel">
+  <div class="setting-row"><div><strong data-i="language">اللغة</strong><small data-i="languageSub">اختر لغة الواجهة</small></div><select id="languageSelect" onchange="setLanguage(this.value)"><option value="ar">العربية</option><option value="en">English</option></select></div>
+  <div class="setting-row"><div><strong data-i="windDown">موعد التهدئة</strong><small data-i="windDownSub">الوقت الذي تترك فيه هاتفك</small></div><input class="settings-input" style="width:130px" type="time" id="sleepInput"></div>
+  <div class="setting-row"><div><strong data-i="notifications">تنبيهات نهاية الجلسة</strong><small data-i="notificationsSub">السماح بإشعار عند انتهاء المؤقت</small></div><button class="secondary" onclick="enableNotifications()" data-i="enable">تفعيل</button></div>
+  <div class="setting-row"><div><strong data-i="dataTitle">بياناتك</strong><small data-i="dataSub">بياناتك محفوظة على هذا المتصفح</small></div><button class="secondary" onclick="exportData()" data-i="export">تصدير</button></div>
+  <div class="setting-row"><div><strong data-i="resetData">إعادة ضبط البيانات</strong><small data-i="resetSub">احذف كل بياناتك المحلية</small></div><button class="danger" onclick="clearData()" data-i="delete">حذف</button></div>
+ </div>
+ <div class="panel" style="margin-top:15px">
+  <div class="panel-head"><span class="panel-title">ABOUT LESS.</span></div>
+  <div class="quote">Less scrolling.<br>More living.</div>
+  <div class="subtitle">A personal space to reclaim your attention.</div>
+  <div class="panel-caption" style="margin-top:18px">VERSION 2.0 / BUILT FOR INTENTION</div>
+ </div>
 </section>
-
-<section class="card sleep-box">
-  <div class="card-title">
-    <h2 id="sleepTitle">وقت التهدئة</h2>
-    <span>☾</span>
-  </div>
-  <div class="sub" id="sleepDesc">حدد وقتًا تترك فيه هاتفك وتستعد للنوم.</div>
-  <div class="field">
-    <input type="time" id="sleepInput" value="23:00">
-    <button class="secondary-btn" onclick="saveSleep()" id="sleepSaveBtn">حفظ الوقت</button>
-  </div>
-  <div class="note" id="sleepStatus"></div>
-</section>
-
-<footer>
-  <div id="footerText">Your time is your life. Spend it intentionally.</div>
-  <div>LESS SCROLLING. MORE LIVING.</div>
-</footer>
+</main>
 </div>
+<footer>LESS. &nbsp; / &nbsp; YOUR TIME IS YOUR LIFE.</footer>
+</div>
+<div class="toast" id="toast"></div>
 
 <script>
-const $ = id => document.getElementById(id);
-
-const translations = {
-  ar: {
-    eyebrow:"A LITTLE LESS, A LITTLE MORE LIFE",
-    headline:"استرجع وقتك.",
-    subtitle:"مش مطلوب منك تختفي من العالم، بس متخليش العالم ياخد كل وقتك.",
-    timerTitle:"جلسة تركيز", ready:"جاهز؟", running:"شغال", paused:"متوقف",
-    start:"ابدأ", pause:"إيقاف مؤقت", resume:"استكمال", reset:"إعادة",
-    timerNote:"اختار مدة وابدأ. كل دقيقة بعيد عن المشتتات بتفرق.",
-    usageTitle:"تسجيل استخدام السوشيال", today:"اليوم",
-    usageDesc:"سجل إجمالي الدقائق اللي قضيتها على التطبيقات النهارده.",
-    usagePlaceholder:"عدد الدقائق", save:"حفظ",
-    usageNote:"التسجيل يدوي، لأن صفحة ويب عادية لا تستطيع قراءة وقت استخدام تطبيقات هاتفك تلقائيًا.",
-    goalTitle:"هدفك اليومي", minutes:"بالدقائق", goalPlaceholder:"حدد هدفك بالدقائق",
-    update:"تحديث", statsTitle:"نظرة على تقدمك", week:"آخر 7 أيام",
-    todayStat:"استخدام اليوم", average:"المتوسط اليومي",
-    streak:"أيام الالتزام", focus:"جلسات التركيز",
-    minute:"دقيقة", day:"يوم", session:"جلسة",
-    chartNote:"الرسم يعرض الدقائق التي سجلتها بنفسك.",
-    sleepTitle:"وقت التهدئة",
-    sleepDesc:"حدد وقتًا تترك فيه هاتفك وتستعد للنوم.",
-    saveTime:"حفظ الوقت", footer:"وقتك هو حياتك. استخدمه بوعي.",
-    saved:"تم الحفظ", completed:"انتهت الجلسة. أحسنت!",
-    goalDone:"حققت هدفك اليومي.", sleepSaved:"موعد التهدئة المحفوظ: ",
-    days:["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"]
-  },
-  en: {
-    eyebrow:"A LITTLE LESS, A LITTLE MORE LIFE",
-    headline:"Take your time back.",
-    subtitle:"You don't have to disappear from the world. Just don't let it take all your time.",
-    timerTitle:"Focus session", ready:"Ready?", running:"Running", paused:"Paused",
-    start:"Start", pause:"Pause", resume:"Resume", reset:"Reset",
-    timerNote:"Choose a duration and begin. Every distraction-free minute matters.",
-    usageTitle:"Social media tracking", today:"Today",
-    usageDesc:"Log the total minutes you spent on apps today.",
-    usagePlaceholder:"Minutes", save:"Save",
-    usageNote:"Manual tracking only. A normal webpage cannot automatically read your phone's app usage.",
-    goalTitle:"Daily goal", minutes:"Minutes", goalPlaceholder:"Set your goal in minutes",
-    update:"Update", statsTitle:"Your progress", week:"Last 7 days",
-    todayStat:"Today's usage", average:"Daily average",
-    streak:"Streak", focus:"Focus sessions",
-    minute:"minutes", day:"days", session:"sessions",
-    chartNote:"The chart shows the minutes you logged manually.",
-    sleepTitle:"Wind down", sleepDesc:"Choose a time to put your phone away and get ready for sleep.",
-    saveTime:"Save time", footer:"Your time is your life. Spend it intentionally.",
-    saved:"Saved", completed:"Session complete. Well done!",
-    goalDone:"You reached your daily goal.", sleepSaved:"Saved wind-down time: ",
-    days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
-  }
+const $=id=>document.getElementById(id);
+const todayKey=()=>{let d=new Date();return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")};
+const oldData=JSON.parse(localStorage.getItem("less_data")||"{}");
+let data={
+ usage:oldData.usage||{},focus:oldData.focus||{},
+ goal:oldData.goal||120,sleep:oldData.sleep||"23:00",
+ tasks:oldData.tasks||[],focusMinutes:oldData.focusMinutes||{}
 };
+let lang=localStorage.getItem("less_lang")||"ar";
+let duration=25*60,remaining=duration,running=false,interval=null;
+let notify=false;
 
-let lang = localStorage.getItem("less_lang") || "ar";
-let selectedMinutes = 25;
-let remaining = 1500;
-let totalSeconds = 1500;
-let interval = null;
-let running = false;
-
-let data = JSON.parse(localStorage.getItem("less_data") || "{}");
-if (!data.usage) data.usage = {};
-if (!data.focus) data.focus = {};
-if (!data.goal) data.goal = 120;
-if (!data.sleep) data.sleep = "23:00";
-
-function t(key) { return translations[lang][key]; }
-function dateKey(date = new Date()) {
-  const y = date.getFullYear();
-  const m = String(date.getMonth()+1).padStart(2,"0");
-  const d = String(date.getDate()).padStart(2,"0");
-  return `${y}-${m}-${d}`;
+const words={
+ ar:{
+ workspace:"WORKSPACE",personal:"PERSONAL",dashboard:"الرئيسية",focus:"التركيز",tasks:"المهام",insights:"الإحصائيات",settings:"الإعدادات",
+ focusToday:"تركيزك اليوم",keepGoing:"استمر، خطوة بخطوة.",welcome:"استرجع وقتك.",welcomeSub:"مساحة هادئة لحياة أقل تشتيتًا وأكثر معنى.",
+ todayUsage:"استخدام اليوم",minutes:"دقيقة",focusTime:"وقت التركيز",tasksDone:"مهام مكتملة",today:"اليوم",focusSession:"FOCUS SESSION",
+ start:"ابدأ",reset:"إعادة",ready:"جاهز لجلسة جديدة؟",dailyGoal:"هدفك اليومي",logUsage:"سجل استخدامك",logDesc:"أدخل وقت استخدامك اليومي يدويًا.",
+ save:"حفظ",dailyQuote:"فكرة اليوم",focusPageTitle:"مساحة التركيز.",focusPageSub:"وقت مخصص لشيء يستحق انتباهك.",
+ sessionStats:"إحصائيات الجلسات",completedSessions:"جلسة مكتملة",focusMinutes:"إجمالي التركيز",focusTip:"قاعدة بسيطة",
+ focusTipText:"أبعد هاتفك، أغلق المشتتات، وابدأ بمهمة واحدة فقط. لا تحتاج إلى حماس خارق، تحتاج إلى بداية.",
+ tasksTitle:"قائمة مهامك.",tasksSub:"رتب أفكارك، وخلّي التنفيذ أبسط.",addTask:"أضف مهمة جديدة",add:"إضافة",
+ insightsTitle:"الصورة الأكبر.",insightsSub:"راقب تقدمك بدل ما تعتمد على إحساسك بالوقت.",weeklyAverage:"متوسط الأسبوع",
+ focusSessions:"جلسات التركيز",weeklyUsage:"استخدام آخر 7 أيام",goalSettings:"إعداد الهدف اليومي",
+ goalDesc:"حدد الحد الذي تريد ألا تتجاوزه في استخدامك.",settingsTitle:"إعداداتك.",settingsSub:"اجعل المساحة مناسبة لطريقتك.",
+ language:"اللغة",languageSub:"اختر لغة الواجهة",windDown:"موعد التهدئة",windDownSub:"الوقت الذي تترك فيه هاتفك",
+ notifications:"تنبيهات نهاية الجلسة",notificationsSub:"السماح بإشعار عند انتهاء المؤقت",enable:"تفعيل",
+ dataTitle:"بياناتك",dataSub:"بياناتك محفوظة على هذا المتصفح",export:"تصدير",resetData:"إعادة ضبط البيانات",
+ resetSub:"احذف كل بياناتك المحلية",delete:"حذف",saved:"تم الحفظ",completed:"انتهت الجلسة. أحسنت!",
+ usagePlaceholder:"عدد الدقائق",taskPlaceholder:"اكتب المهمة هنا",emptyTasks:"لا توجد مهام بعد. أضف أول مهمة.",
+ minutesUnit:"دقيقة",days:["أحد","إثنين","ثلاثاء","أربعاء","خميس","جمعة","سبت"],
+ quotes:["حياتك تحدث الآن. لا تقضِها في مشاهدة حياة الآخرين.","التركيز ليس أن تفعل كل شيء، بل أن تختار ما يستحق.","خطوة صغيرة كل يوم تصنع فرقًا كبيرًا.","وقت انتباهك أغلى مما تتخيل."],
+ goalReached:"حققت هدفك اليوم.",confirmDelete:"هل أنت متأكد من حذف كل البيانات؟",customError:"أدخل مدة صحيحة من 1 إلى 240 دقيقة.",
+ usageError:"أدخل عدد دقائق صحيحًا.",goalError:"أدخل هدفًا صحيحًا.",tasks:"مهمة",windSaved:"تم حفظ موعد التهدئة."
+ },
+ en:{
+ workspace:"WORKSPACE",personal:"PERSONAL",dashboard:"Dashboard",focus:"Focus",tasks:"Tasks",insights:"Insights",settings:"Settings",
+ focusToday:"YOUR FOCUS TODAY",keepGoing:"Keep going, one step at a time.",welcome:"Take your time back.",welcomeSub:"A quiet space for a less distracted, more meaningful life.",
+ todayUsage:"Today's usage",minutes:"Minutes",focusTime:"Focus time",tasksDone:"Tasks completed",today:"Today",focusSession:"FOCUS SESSION",
+ start:"Start",reset:"Reset",ready:"Ready for a new session?",dailyGoal:"Daily goal",logUsage:"Log your usage",logDesc:"Manually enter your daily screen time.",
+ save:"Save",dailyQuote:"A thought for today",focusPageTitle:"Enter focus mode.",focusPageSub:"Time dedicated to something worth your attention.",
+ sessionStats:"Session statistics",completedSessions:"Completed sessions",focusMinutes:"Total focus",focusTip:"A simple rule",
+ focusTipText:"Put your phone away, close distractions, and start with one task. You don't need extraordinary motivation. You need a beginning.",
+ tasksTitle:"Your tasks.",tasksSub:"Organize your thoughts. Make execution simpler.",addTask:"Add a new task",add:"Add",
+ insightsTitle:"The bigger picture.",insightsSub:"Track your progress instead of guessing where your time goes.",weeklyAverage:"Weekly average",
+ focusSessions:"Focus sessions",weeklyUsage:"Last 7 days",goalSettings:"Daily goal settings",
+ goalDesc:"Set the limit you want to stay under.",settingsTitle:"Your settings.",settingsSub:"Make this space work your way.",
+ language:"Language",languageSub:"Choose your interface language",windDown:"Wind-down time",windDownSub:"When you put your phone away",
+ notifications:"Session notifications",notificationsSub:"Get notified when the timer ends",enable:"Enable",
+ dataTitle:"Your data",dataSub:"Your data is stored in this browser",export:"Export",resetData:"Reset data",
+ resetSub:"Delete all your local data",delete:"Delete",saved:"Saved",completed:"Session complete. Well done!",
+ usagePlaceholder:"Minutes",taskPlaceholder:"Write a task...",emptyTasks:"No tasks yet. Add your first task.",
+ minutesUnit:"min",days:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],
+ quotes:["Your life is happening now. Don't spend it watching someone else's.","Focus is not doing everything. It's choosing what matters.","Small steps every day create a big difference.","Your attention is more valuable than you think."],
+ goalReached:"You reached your daily goal.",confirmDelete:"Are you sure you want to delete all data?",customError:"Enter a duration from 1 to 240 minutes.",
+ usageError:"Enter valid minutes.",goalError:"Enter a valid goal.",tasks:"tasks",windSaved:"Wind-down time saved."
+ }};
+const t=k=>words[lang][k]??k;
+function persist(){localStorage.setItem("less_data",JSON.stringify(data))}
+function toast(msg){let el=$("toast");el.textContent=msg;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),2300)}
+function showPage(name){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===name));
+ $("page-"+name).classList.add("active");
+ if(name==="insights")updateInsights();
+ if(name==="focus")updateTimer();
+ if(name==="tasks")renderTasks();
 }
-function persist() {
-  localStorage.setItem("less_data",JSON.stringify(data));
+function toggleLang(){setLanguage(lang==="ar"?"en":"ar")}
+function setLanguage(value){
+ lang=value;localStorage.setItem("less_lang",lang);
+ document.documentElement.lang=lang;document.documentElement.dir=lang==="ar"?"rtl":"ltr";
+ $("langBtn").textContent=lang==="ar"?"EN":"عربي";
+ $("languageSelect").value=lang;
+ document.querySelectorAll("[data-i]").forEach(el=>{let key=el.dataset.i;if(t(key))el.textContent=t(key)});
+ $("usageInput").placeholder=t("usagePlaceholder");
+ $("taskInput").placeholder=t("taskPlaceholder");
+ updateAll();
 }
-function toggleLang() {
-  lang = lang === "ar" ? "en" : "ar";
-  localStorage.setItem("less_lang",lang);
-  renderLanguage();
+function animateNumber(el,value){
+ let start=Number(el.textContent)||0;
+ let end=Number(value)||0;
+ let began=performance.now();
+ function step(now){
+  let p=Math.min((now-began)/450,1);
+  el.textContent=Math.round(start+(end-start)*(1-Math.pow(1-p,3)));
+  if(p<1)requestAnimationFrame(step);
+ }
+ requestAnimationFrame(step);
 }
-function renderLanguage() {
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
-  $("langBtn").textContent = lang === "ar" ? "EN" : "عربي";
-
-  const ids = [
-    "eyebrow","headline","subtitle","timerTitle","timerNote",
-    "usageTitle","todayLabel","usageDesc","saveUsageBtn","usageNote",
-    "goalTitle","goalLabel","goalSaveBtn","statsTitle","weekLabel",
-    "statToday","statAverage","statStreak","statFocus",
-    "minutesUnit","minutesUnit2","daysUnit","sessionsUnit",
-    "chartNote","sleepTitle","sleepDesc","sleepSaveBtn","footerText"
-  ];
-  const keys = [
-    "eyebrow","headline","subtitle","timerTitle","timerNote",
-    "usageTitle","today","usageDesc","save","usageNote",
-    "goalTitle","minutes","update","statsTitle","week",
-    "todayStat","average","streak","focus",
-    "minute","minute","day","session",
-    "chartNote","sleepTitle","sleepDesc","saveTime","footer"
-  ];
-  ids.forEach((id,i) => $(id).textContent = t(keys[i]));
-
-  $("usageInput").placeholder = t("usagePlaceholder");
-  $("goalInput").placeholder = t("goalPlaceholder");
-  $("startBtn").textContent = running ? t("pause") : t("start");
-  $("resetBtn").textContent = t("reset");
-  $("timerStatus").textContent = running ? t("running") : t("ready");
-  updateStats();
-  updateTimer();
-  updateSleepStatus();
+function saveUsage(){
+ let v=Number($("usageInput").value);
+ if(!Number.isFinite(v)||v<0||v>1440){toast(t("usageError"));return}
+ data.usage[todayKey()]=Math.round(v);persist();$("usageInput").value="";
+ updateAll();toast(t("saved"));
 }
-function setTimer(minutes,button) {
-  if (running) return;
-  selectedMinutes = minutes;
-  totalSeconds = minutes*60;
-  remaining = totalSeconds;
-  document.querySelectorAll(".preset").forEach(b=>b.classList.remove("active"));
-  if (button) button.classList.add("active");
-  updateTimer();
+function saveGoal(){
+ let v=Number($("goalInput").value);
+ if(!Number.isFinite(v)||v<1||v>1440){toast(t("goalError"));return}
+ data.goal=Math.round(v);persist();$("goalInput").value="";updateAll();toast(t("saved"));
 }
-function updateTimer() {
-  const m = Math.floor(remaining/60);
-  const s = remaining%60;
-  $("timer").textContent = `${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;
-  const done = 100 - (remaining/totalSeconds*100);
-  $("timerProgress").style.width = `${done}%`;
+function setTimer(min,btn){
+ if(running)return;
+ duration=min*60;remaining=duration;
+ document.querySelectorAll(".preset").forEach(b=>b.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ updateTimer();
 }
-function toggleTimer() {
-  if (running) {
-    clearInterval(interval);
-    running = false;
-    $("startBtn").textContent = t("resume");
-    $("timerStatus").textContent = t("paused");
-    return;
-  }
-  if (remaining <= 0) resetTimer();
-  running = true;
-  $("startBtn").textContent = t("pause");
-  $("timerStatus").textContent = t("running");
-  interval = setInterval(() => {
-    remaining--;
-    updateTimer();
-    if (remaining <= 0) {
-      clearInterval(interval);
-      running = false;
-      const key = dateKey();
-      data.focus[key] = (data.focus[key] || 0) + 1;
-      persist();
-      $("startBtn").textContent = t("start");
-      $("timerStatus").textContent = t("completed");
-      updateStats();
-      if ("Notification" in window && Notification.permission === "granted") {
-        new Notification("less", {body:t("completed")});
-      }
-      alert(t("completed"));
-    }
-  },1000);
+function customTimer(){
+ let v=Number($("customMinutes").value);
+ if(!Number.isInteger(v)||v<1||v>240){toast(t("customError"));return}
+ setTimer(v,null);$("customMinutes").value="";
 }
-function resetTimer() {
-  clearInterval(interval);
-  running = false;
-  remaining = totalSeconds;
-  $("startBtn").textContent = t("start");
-  $("timerStatus").textContent = t("ready");
-  updateTimer();
+function updateTimer(){
+ let m=Math.floor(remaining/60),s=remaining%60;
+ let value=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+ ["dashTimer","focusTimer"].forEach(id=>$(id).textContent=value);
+ let pct=100*(1-remaining/duration);
+ ["dashRing","focusRing"].forEach(id=>$(id).style.width=pct+"%");
+ $("dashStart").textContent=running?(lang==="ar"?"إيقاف مؤقت":"Pause"):t("start");
+ $("focusStart").textContent=running?(lang==="ar"?"إيقاف مؤقت":"Pause"):t("start");
+ $("timerStatus").textContent=running?(lang==="ar"?"جلسة جارية":"Session running"):t("ready");
+ $("focusStatus").textContent=$("timerStatus").textContent;
 }
-function saveUsage() {
-  const value = Number($("usageInput").value);
-  if (!Number.isFinite(value) || value < 0 || value > 1440) {
-    alert(lang === "ar" ? "اكتب عدد دقائق صحيح." : "Enter a valid number of minutes.");
-    return;
-  }
-  data.usage[dateKey()] = Math.round(value);
-  persist();
-  $("usageInput").value = "";
-  updateStats();
-  alert(t("saved"));
+function toggleTimer(){
+ if(running){
+  clearInterval(interval);running=false;updateTimer();return;
+ }
+ if(remaining<=0)resetTimer();
+ running=true;updateTimer();
+ interval=setInterval(()=>{
+  remaining--;updateTimer();
+  if(remaining<=0)finishTimer();
+ },1000);
 }
-function saveGoal() {
-  const value = Number($("goalInput").value);
-  if (!Number.isFinite(value) || value < 1 || value > 1440) {
-    alert(lang === "ar" ? "اكتب هدفًا صحيحًا بالدقائق." : "Enter a valid goal in minutes.");
-    return;
-  }
-  data.goal = Math.round(value);
-  persist();
-  $("goalInput").value = "";
-  updateStats();
-  alert(t("saved"));
+function finishTimer(){
+ clearInterval(interval);running=false;remaining=0;
+ let key=todayKey();
+ data.focus[key]=(data.focus[key]||0)+1;
+ data.focusMinutes[key]=(data.focusMinutes[key]||0)+Math.round(duration/60);
+ persist();updateTimer();updateAll();toast(t("completed"));
+ if(notify&&"Notification"in window&&Notification.permission==="granted"){
+  new Notification("LESS",{body:t("completed")});
+ }
 }
-function saveSleep() {
-  data.sleep = $("sleepInput").value || "23:00";
-  persist();
-  updateSleepStatus();
-  alert(t("saved"));
+function resetTimer(){clearInterval(interval);running=false;remaining=duration;updateTimer()}
+function getDays(){
+ let arr=[];
+ for(let i=6;i>=0;i--){let d=new Date();d.setDate(d.getDate()-i);arr.push(d)}
+ return arr;
 }
-function updateSleepStatus() {
-  $("sleepInput").value = data.sleep;
-  $("sleepStatus").textContent = t("sleepSaved") + data.sleep;
+function updateGoal(){
+ let v=data.usage[todayKey()]||0,goal=data.goal||120;
+ let p=Math.min(100,Math.round(v/goal*100));
+ $("goalProgressText").textContent=v+" / "+goal;
+ $("goalPercent").textContent=p+"%";$("goalBar").style.width=p+"%";
 }
-function getLastDays() {
-  const result = [];
-  for (let i=6;i>=0;i--) {
-    const d = new Date();
-    d.setDate(d.getDate()-i);
-    result.push(d);
-  }
-  return result;
+function updateChart(){
+ let days=getDays(),values=days.map(d=>data.usage[dateKeyOf(d)]||0);
+ let max=Math.max(1,...values);
+ $("weekChart").innerHTML="";
+ days.forEach((d,i)=>{
+  let col=document.createElement("div");col.className="chart-col";
+  let val=document.createElement("div");val.className="chart-value";val.textContent=values[i];
+  let bar=document.createElement("div");bar.className="chart-bar"+(i===6?" today":"");
+  bar.style.height=Math.max(3,values[i]/max*95)+"px";
+  let label=document.createElement("div");label.className="chart-day";label.textContent=t("days")[d.getDay()];
+  col.append(val,bar,label);$("weekChart").append(col);
+ });
 }
-function calculateStreak() {
-  let streak = 0;
-  const today = new Date();
-  for (let i=0;i<365;i++) {
-    const d = new Date();
-    d.setDate(today.getDate()-i);
-    const key = dateKey(d);
-    if ((data.usage[key] || 0) <= data.goal && data.usage[key] !== undefined) streak++;
-    else break;
-  }
-  return streak;
+function dateKeyOf(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+function updateInsights(){
+ let vals=getDays().map(d=>data.usage[dateKeyOf(d)]||0);
+ animateNumber($("insightUsage"),data.usage[todayKey()]||0);
+ animateNumber($("weeklyAverage"),Math.round(vals.reduce((a,b)=>a+b,0)/7));
+ animateNumber($("insightSessions"),Object.values(data.focus).reduce((a,b)=>a+b,0));
+ updateChart();
 }
-function updateStats() {
-  const today = data.usage[dateKey()] || 0;
-  const goal = data.goal || 120;
-  const percent = Math.min(100,Math.round(today/goal*100));
-  $("goalProgressText").textContent = `${today} / ${goal} ${t("minute")}`;
-  $("goalPercent").textContent = `${percent}%`;
-  $("goalBar").style.width = `${percent}%`;
-  $("todayStat").textContent = today;
-  const days = getLastDays();
-  const values = days.map(d => data.usage[dateKey(d)] || 0);
-  const average = Math.round(values.reduce((a,b)=>a+b,0)/7);
-  $("averageStat").textContent = average;
-  $("streakStat").textContent = calculateStreak();
-  $("focusStat").textContent = Object.values(data.focus).reduce((a,b)=>a+b,0);
-  if (today > 0 && today <= goal) {
-    $("goalProgressText").textContent += " ✓";
-  }
-  const max = Math.max(...values,1);
-  $("weekChart").innerHTML = "";
-  days.forEach((d,i) => {
-    const item = document.createElement("div");
-    item.className = "bar-item";
-    const value = values[i];
-    const bar = document.createElement("div");
-    bar.className = "bar" + (i===6 ? " today" : "");
-    bar.style.height = `${Math.max(3,value/max*82)}px`;
-    const val = document.createElement("div");
-    val.className = "bar-value";
-    val.textContent = value;
-    const label = document.createElement("div");
-    label.className = "bar-label";
-    label.textContent = t("days")[d.getDay()];
-    item.append(bar,val,label);
-    $("weekChart").append(item);
-  });
+function renderTasks(){
+ $("taskList").innerHTML="";
+ let open=data.tasks.filter(x=>!x.done).length;
+ $("taskCount").textContent=data.tasks.length+" "+t("tasks");
+ if(!data.tasks.length){$("taskList").innerHTML='<div class="empty">'+t("emptyTasks")+'</div>';return}
+ data.tasks.forEach(task=>{
+  let row=document.createElement("div");row.className="task-item"+(task.done?" done":"");
+  let check=document.createElement("input");check.type="checkbox";check.className="task-check";check.checked=task.done;
+  check.addEventListener("change",()=>{task.done=check.checked;persist();renderTasks();updateAll()});
+  let text=document.createElement("span");text.className="task-text";text.textContent=task.text;
+  let del=document.createElement("button");del.className="task-delete";del.textContent="×";del.title="Delete";
+  del.addEventListener("click",()=>{data.tasks=data.tasks.filter(x=>x.id!==task.id);persist();renderTasks();updateAll()});
+  row.append(check,text,del);$("taskList").append(row);
+ });
 }
-$("sleepInput").value = data.sleep;
-renderLanguage();
-updateStats();
+function addTask(e){
+ e.preventDefault();let value=$("taskInput").value.trim();if(!value)return;
+ data.tasks.unshift({id:Date.now(),text:value,done:false});
+ persist();$("taskInput").value="";renderTasks();updateAll();
+}
+function updateAll(){
+ let usage=data.usage[todayKey()]||0;
+ let focus=data.focusMinutes[todayKey()]||0;
+ let done=data.tasks.filter(x=>x.done).length;
+ animateNumber($("dashUsage"),usage);animateNumber($("dashFocus"),focus);
+ animateNumber($("dashTasks"),done);animateNumber($("sideFocus"),focus);
+ $("sideFocus").textContent=focus+" min";
+ updateGoal();updateInsights();renderTasks();
+ let totalSessions=Object.values(data.focus).reduce((a,b)=>a+b,0);
+ let totalMinutes=Object.values(data.focusMinutes).reduce((a,b)=>a+b,0);
+ $("totalSessions").textContent=totalSessions;$("totalFocusMinutes").textContent=totalMinutes;
+ $("todayDate").textContent=new Intl.DateTimeFormat(lang==="ar"?"ar-EG":"en-US",{weekday:"long",day:"numeric",month:"long"}).format(new Date());
+ $("sleepInput").value=data.sleep;
+ $("languageSelect").value=lang;
+}
+function enableNotifications(){
+ if(!("Notification"in window)){toast("Notifications not supported");return}
+ Notification.requestPermission().then(p=>{notify=p==="granted";toast(notify?t("saved"):"Permission not granted")});
+}
+function exportData(){
+ let blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+ let url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="less-backup.json";a.click();URL.revokeObjectURL(url);
+}
+function clearData(){
+ if(!confirm(t("confirmDelete")))return;
+ localStorage.removeItem("less_data");data={usage:{},focus:{},goal:120,sleep:"23:00",tasks:[],focusMinutes:{}};
+ persist();updateAll();toast(t("saved"));
+}
+$("sleepInput").addEventListener("change",e=>{data.sleep=e.target.value;persist();toast(t("windSaved"))});
+$("quoteText").textContent=t("quotes")[new Date().getDate()%t("quotes").length];
+setLanguage(lang);
+updateAll();
 updateTimer();
 </script>
 </body>
 </html>
-
